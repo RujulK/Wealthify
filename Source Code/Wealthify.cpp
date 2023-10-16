@@ -6,7 +6,6 @@
 */
 
 #include <iostream>
-#include <string>
 #include <cstring>
 using namespace std;
 
@@ -123,6 +122,19 @@ class Wealthify // CLASS USED // Main class of the app
             }
         }
 
+        string lower(string lwr) // Turns a string, uppercase into lowercase and if lower case then ignores
+        {
+            for(int i=0;lwr[i]!='\0';i++)
+            {
+                if ((lwr[i] >= 'A') && (lwr[i] <= 'Z'))
+                {  
+                    lwr[i] += 32;    
+                }
+            }
+
+            return lwr;
+        }
+
         void start_app()
         {
             do
@@ -162,7 +174,34 @@ class Wealthify // CLASS USED // Main class of the app
 
             cout << "You may start entering details for the date " << d << "-" << m << "-" << y << endl << endl;*/
 
+            string op;
+
+            do
+            {
+                cout << "MAIN MENU" << endl << endl;
+                cout << "Type \"info\" to get information on how to use the app" << endl;
+                cout << "Type here: ";
+                cin >> op;
+                op = lower(op); // Can accept any input doesn't care about case
+                cout << endl;
+
+                if (op == "info")
+                {
+                    cout << "Type \"Display balance\" to exit the app" << endl;
+                    cout << "Type \"How much did I spend today?\" to know today's amount of money spent" << endl;
+                    cout << "Type \"Today's expenses\" to exit the app" << endl;
+                    cout << "Type \"Add\" to add money spent on something" << endl;
+                    cout << "Type \"Exit\" to exit the app" << endl << endl;
+                }
+            } while (op != "exit"); // Forcing to lower case so it ain't case sensitive
+            
+
         
+        }
+
+        void add_bal()
+        {
+            
         }
 
         void get_amt()
