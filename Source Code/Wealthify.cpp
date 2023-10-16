@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <string>
+#include <cstring>
 using namespace std;
 
 typedef struct category // STRUCT USED // Categories of types of payment
@@ -23,19 +24,18 @@ class Wealthify // CLASS USED // Main class of the app
         int balance;
         int value[50][12][31]; // Array with 50 Years worth of data thaat can be stored, and then 12 months and 31 days
         int user_type; // User type: 0 for Normal Tier user, 1 for Pro Tier user, 2 for Exclusive Tier user
-        string user_n; // User name
-        string user_p; // User pass
-
+        int menu_temp;
+        string user_n[2]; // User name, 0 to store the actual one and 1 to store the user input trying to login
+        string user_p[2]; // User pass, 0 to store the actual one and 1 to store the user input trying to login
 
     public:
-
         void acc_create() // Account creation function added
         {
             cout << "Enter the User Name you would like to have: "; // Take user name from the user
-            cin >> user_n;
+            cin >> user_n[0];
             cout << endl;
             cout << "Enter the Password you would like to have: "; // Take password from the user
-            cin >> user_p;
+            cin >> user_p[0];
             cout << endl;
         }
 
@@ -89,7 +89,17 @@ class Wealthify // CLASS USED // Main class of the app
 
         void start_app()
         {
-
+            do
+            {
+                cout << "Enter the User Name: "; // Take user name from the user
+                cin >> user_n[1];
+                cout << endl;
+                cout << "Enter the Password: "; // Take password from the user
+                cin >> user_p[1];
+                cout << endl;
+            } while (user_n[0] != user_n[1]);
+            
+            cout << "Entered" << endl;
         }
 
         
