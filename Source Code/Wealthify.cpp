@@ -9,24 +9,29 @@
 #include <cstring>
 using namespace std;
 
-struct category // STRUCT USED // Categories of types of payment
-{
-    string food;
-    string gadgets;
-    string wardrobe;
-    string appliances;
-};
-
 class Wealthify // CLASS USED // Main class of the app
 {
     private:
         int balance;
-        int value[50][12][31]; // Array with 50 Years worth of data thaat can be stored, and then 12 months and 31 days
+        long long int d_val[500]; // Verification variable for storing specific date info
+        int d_i = 0; 
         int user_type; // User type: 0 for Normal Tier user, 1 for Pro Tier user, 2 for Exclusive Tier user
-        int menu_temp;
+        //int menu_temp;
         string user_n[2]; // User name, 0 to store the actual one and 1 to store the user input trying to login
         string user_p[2]; // User pass, 0 to store the actual one and 1 to store the user input trying to login
         int y, m, d;
+
+        class category // NESTED CLASS USED // Categories of types of payment
+        {
+            public:
+                int food[500] = {0};
+                int gadgets[500] = {0};
+                int wardrobe[500] = {0};
+                int appliances[500] = {0};
+                int other[500] = {0};
+                int g, w, a, o;
+                int f = g = w = a = o = 0; // Counter
+        };
 
     public:
         void acc_create() // Account creation function added
@@ -90,6 +95,7 @@ class Wealthify // CLASS USED // Main class of the app
         void date_up() // INNOVATIVE FEATURE?? HEHE PLS GIVE MARKS :D // Function to update the months and year and reset the day
         {
             d++; // Incrementing the day by one
+            d_i++; // Incrementing the unique value counter
 
             int m_max = 31;  // Max days in a month
 
@@ -168,7 +174,7 @@ class Wealthify // CLASS USED // Main class of the app
             cin >> d;
             cout << endl;
 
-            cout << "You may start entering details for the date " << d << "-" << m << "-" << y << endl << endl;
+            d_val[d_i] = (d + m + y) + (d * m * y); // To get a unique value for each dates
 
             /*date_up();
 
@@ -178,6 +184,7 @@ class Wealthify // CLASS USED // Main class of the app
 
             do
             {
+                cout << "You may start entering details for the date " << d << "-" << m << "-" << y << endl << endl;
                 cout << "MAIN MENU" << endl << endl;
                 cout << "Type \"info\" to get information on how to use the app" << endl;
                 cout << "Type here: ";
@@ -191,7 +198,13 @@ class Wealthify // CLASS USED // Main class of the app
                     cout << "Type \"How much did I spend today?\" to know today's amount of money spent" << endl;
                     cout << "Type \"Today's expenses\" to exit the app" << endl;
                     cout << "Type \"Add\" to add money spent on something" << endl;
+                    cout << "Type \"Next Day\" to change the current date to tomorrow" << endl;
+                    cout << "Type \"Update old\" to update balance from old account" << endl;
                     cout << "Type \"Exit\" to exit the app" << endl << endl;
+                }
+                else if (op == "add")
+                {
+                    add_bal();
                 }
             } while (op != "exit"); // Forcing to lower case so it ain't case sensitive
             
@@ -199,9 +212,108 @@ class Wealthify // CLASS USED // Main class of the app
         
         }
 
-        void add_bal()
+        // Testing FUCNTION OVERLOADING
+        int sum(int a, int b) // FUNCTION OVERLOADING with 2 parameters // Function for sum
         {
-            
+            return a + b;
+        }        
+        int sum(int a, int b, int c) // FUNCTION OVERLOADING with 3 parameters // Function for sum
+        {
+            return a + b + c;
+        }
+        int sum(int a, int b, int c, int d) // FUNCTION OVERLOADING with 4 parameters // Function for sum
+        {
+            return a + b + c + d;
+        }
+        int sum(int a, int b, int c, int d, int e) // FUNCTION OVERLOADING with 5 parameters // Function for sum
+        {
+            return a + b + c + d + e;
+        }
+        int sum(int a, int b, int c, int d, int e, int f) // FUNCTION OVERLOADING with 6 parameters // Function for sum
+        {
+            return a + b + c + d + e + f;
+        }
+
+        void add_bal() // Function to add to balance
+        {
+            int tmp; // Temporarily store the value
+            string s_tmp; // Option string
+            int d_tmp; // Digit temporary variable
+            int v_sum[5]; // Temp Variable for sum
+            int cat; // To add to category
+
+            cout << "What did you spend the money on?" << endl; // Bal menu 1
+            cout << "Type from the following categories" << endl;
+            cout << "Food" << endl;
+            cout << "Gadgets" << endl;
+            cout << "Wardrobe" << endl;
+            cout << "Appliances" << endl;
+            cout << "Other" << endl;
+            cout << "Enter here: ";
+            cin >> s_tmp;
+            s_tmp = lower(s_tmp);
+            cout << endl;
+
+            cout << "How many different kinds of " << s_tmp << " did you buy?" << endl; // Bal menu 2
+            cout << "Enter a number (maximum of 5): ";
+            cin >> d_tmp;
+            cout << endl;
+
+            for (int i = 0; i < d_tmp; i++) // Storing all the item values within the variable
+            {
+                cout << "Enter the price of " << s_tmp << " number " << i + 1 << ": ";
+                cin >> v_sum[i]; 
+            }
+            cout << endl;
+
+            switch(d_tmp) // Selecting which function overload to pick
+            {
+                case 1:
+                    tmp = sum(balance, v_sum[0]);
+                    break;
+                case 2:
+                    tmp = sum(balance, v_sum[0], v_sum[1]);
+                    break;
+                case 3:
+                    tmp = sum(balance, v_sum[0], v_sum[1], v_sum[2]);
+                    break;
+                case 4:
+                    tmp = sum(balance, v_sum[0], v_sum[1], v_sum[2], v_sum[3]);
+                    break;
+                case 5:
+                    tmp = sum(balance, v_sum[0], v_sum[1], v_sum[2], v_sum[3], v_sum[4]);
+                    break;
+            }
+
+            cat = tmp - balance;
+            balance = tmp;
+            category A;
+
+            if (s_tmp == "food")
+            {
+                A.food[A.f] += tmp;
+                A.f++;
+            }
+            else if (s_tmp == "gadgets")
+            {
+                A.gadgets[A.g] += tmp;
+                A.g++;
+            }
+            else if (s_tmp == "wardrobe")
+            {
+                A.wardrobe[A.w] += tmp;
+                A.w++;
+            }
+            else if (s_tmp == "appliances")
+            {
+                A.appliances[A.a] += tmp;
+                A.a++;
+            }
+            else
+            {
+                A.other[A.o] += tmp;
+                A.o++;
+            }
         }
 
         void get_amt()
@@ -215,5 +327,6 @@ int main()
     Wealthify x(60, 2); // Object created and variables invoked using parameterized constructor; 
     x.show();
     x.start_app();
+    x.show();
     return 0;
 }
