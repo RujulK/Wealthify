@@ -101,6 +101,7 @@ class Wealthify // CLASS USED // Main class of the app
             d++; // Incrementing the day by one
             d_i++; // Incrementing the unique value counter
             today_spent = 0; // Resets today's money spents
+            kitty = 0;
 
             int m_max = 31;  // Max days in a month
 
