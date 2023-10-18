@@ -3,6 +3,7 @@
     By,
     Rujul Krishna (23070122511)
     Mahesh Kharote (23070122517)
+    Vanisha Agrawal (22070122245)
 */
 
 #include <iostream>
@@ -53,7 +54,7 @@ class Wealthify // CLASS USED // Main class of the app
             
             acc_create();
             
-            balance = 0;
+            balance = 10000;
             user_type = 0;
         }
 
@@ -201,7 +202,7 @@ class Wealthify // CLASS USED // Main class of the app
                     cout << "Type \"How much money do I have\" to to show your balance" << endl;
                     cout << "Type \"How much did I spend today?\" to know today's amount of money spent" << endl;
                     cout << "Type \"Add\" to add money spent on something" << endl;
-                    cout << "Type \"Next Day\" to change the current date to tomorrow" << endl;
+                    cout << "Type \"Next\" to change the current date to tomorrow" << endl;
                     cout << "Type \"Update old\" to update balance from old account" << endl;
                     cout << "Type \"Exit\" to exit the app" << endl << endl;
                 }
@@ -217,6 +218,10 @@ class Wealthify // CLASS USED // Main class of the app
                 else if (op == "today")
                 {
                     today();
+                }
+                else if (op == "next")
+                {
+                    date_up();
                 }
             } while (op != "exit"); // Forcing to lower case so it ain't case sensitive
             
@@ -350,9 +355,44 @@ class Wealthify // CLASS USED // Main class of the app
 
 int main()
 {
-    Wealthify x(6000, 2); // Object created and variables invoked using parameterized constructor; 
+    int op;
+    
+    cout << "Welcome to the Main ADMIN Menu of WEALTHIFY" << endl << endl;
+    cout << "A Project By: Rujul Krishna - 23070122511, Mahesh Kharote - 23070122517, Vanisha Agrawal - 22070122245" << endl;
+    cout << "Project led by the AMAZING Leader, Rujul" << endl << endl;
+    cout << "Options:" << endl;
+    cout << "1. Normal User Account Creation" << endl;
+    cout << "2. Pro User Account Creation" << endl;
+    cout << "3. Exclusive User Account Creation" << endl;
+    cout << "Pick the account you wish to give to the user (Enter the option number): ";
+    cin >> op;
+    cout << endl << endl;
 
-    x.start_app();
+    do
+    {
+        if (op == 1)
+        {
+            Wealthify x; // Default balance of 10000
+            x.start_app();
+            break;
+            }
+        else if (op == 2)
+        {
+            Wealthify x(5000);
+            x.start_app();
+            break;
+        }
+        else if (op == 3)
+        {
+            Wealthify x(6000, 2); // Object created and variables invoked using parameterized constructor; 
+            x.start_app();
+            break;
+        }
+    }   while (op !=  0);
+
+    /*Wealthify x(6000, 2);
+
+    x.start_app();*/
 
     return 0;
 }
