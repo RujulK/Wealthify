@@ -199,11 +199,10 @@ class Wealthify // CLASS USED // Main class of the app
 
                 if (op == "info")
                 {
-                    cout << "Type \"How much money do I have\" to to show your balance" << endl;
-                    cout << "Type \"How much did I spend today?\" to know today's amount of money spent" << endl;
+                    cout << "Type \"Balance\" to to show your balance" << endl;
+                    cout << "Type \"Today\" to know today's amount of money spent" << endl;
                     cout << "Type \"Add\" to add money spent on something" << endl;
                     cout << "Type \"Next\" to change the current date to tomorrow" << endl;
-                    cout << "Type \"Update old\" to update balance from old account" << endl;
                     cout << "Type \"Exit\" to exit the app" << endl << endl;
                 }
                 else if (op == "add")
