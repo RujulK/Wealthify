@@ -5,10 +5,10 @@ Our Expense Tracker is a comprehensive daily expense tracker designed to meet th
 
 
 
-Created By,
-  Rujul Krishna 
-  Mahesh Kharote
-  Vanisha Agrawal
+Created By,<br>
+Rujul Krishna<br>
+Mahesh Kharote<br>
+Vanisha Agrawal<br>
 
 The Team was led by Rujul Krishna for this project.
 
