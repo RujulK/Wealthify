@@ -14,12 +14,15 @@ class Wealthify // CLASS USED // Main class of the app
     private:
         int balance;
         long long int d_val[500]; // Verification variable for storing specific date info
-        int d_i = 0; 
+        float day_val[500] = {0}; // Storing per day value
+        int d_i = 0;  // Day counter
         int user_type; // User type: 0 for Normal Tier user, 1 for Pro Tier user, 2 for Exclusive Tier user
         //int menu_temp;
         string user_n[2]; // User name, 0 to store the actual one and 1 to store the user input trying to login
         string user_p[2]; // User pass, 0 to store the actual one and 1 to store the user input trying to login
         int y, m, d;
+        int today_spent = 0;
+        int kitty = 0;
 
         class category // NESTED CLASS USED // Categories of types of payment
         {
@@ -96,6 +99,7 @@ class Wealthify // CLASS USED // Main class of the app
         {
             d++; // Incrementing the day by one
             d_i++; // Incrementing the unique value counter
+            today_spent = 0; // Resets today's money spents
 
             int m_max = 31;  // Max days in a month
 
@@ -194,9 +198,8 @@ class Wealthify // CLASS USED // Main class of the app
 
                 if (op == "info")
                 {
-                    cout << "Type \"Display balance\" to exit the app" << endl;
+                    cout << "Type \"How much money do I have\" to to show your balance" << endl;
                     cout << "Type \"How much did I spend today?\" to know today's amount of money spent" << endl;
-                    cout << "Type \"Today's expenses\" to exit the app" << endl;
                     cout << "Type \"Add\" to add money spent on something" << endl;
                     cout << "Type \"Next Day\" to change the current date to tomorrow" << endl;
                     cout << "Type \"Update old\" to update balance from old account" << endl;
@@ -205,6 +208,15 @@ class Wealthify // CLASS USED // Main class of the app
                 else if (op == "add")
                 {
                     add_bal();
+                }    
+                else if (op == "balance")
+                {
+                    cout << "BALANCE FEATURE SELECTED. PERFORMING ACTION BELOW" << endl << endl;
+                    show();
+                }
+                else if (op == "today")
+                {
+                    today();
                 }
             } while (op != "exit"); // Forcing to lower case so it ain't case sensitive
             
@@ -215,27 +227,33 @@ class Wealthify // CLASS USED // Main class of the app
         // Testing FUCNTION OVERLOADING
         int sum(int a, int b) // FUNCTION OVERLOADING with 2 parameters // Function for sum
         {
-            return a + b;
+            return a - b;
         }        
         int sum(int a, int b, int c) // FUNCTION OVERLOADING with 3 parameters // Function for sum
         {
-            return a + b + c;
+            return a - b - c;
         }
         int sum(int a, int b, int c, int d) // FUNCTION OVERLOADING with 4 parameters // Function for sum
         {
-            return a + b + c + d;
+            return a - b - c - d;
         }
         int sum(int a, int b, int c, int d, int e) // FUNCTION OVERLOADING with 5 parameters // Function for sum
         {
-            return a + b + c + d + e;
+            return a - b - c - d - e;
         }
         int sum(int a, int b, int c, int d, int e, int f) // FUNCTION OVERLOADING with 6 parameters // Function for sum
         {
-            return a + b + c + d + e + f;
+            return a - b - c - d - e - f;
+        }
+
+        void today()
+        {
+            cout << "The current amount of money you have is " << kitty << " Rupees" << endl << endl;
         }
 
         void add_bal() // Function to add to balance
         {
+            kitty = 0;
             int tmp; // Temporarily store the value
             string s_tmp; // Option string
             int d_tmp; // Digit temporary variable
@@ -269,64 +287,72 @@ class Wealthify // CLASS USED // Main class of the app
             switch(d_tmp) // Selecting which function overload to pick
             {
                 case 1:
+                    kitty = v_sum[0];
                     tmp = sum(balance, v_sum[0]);
                     break;
                 case 2:
+                    kitty = v_sum[0] + v_sum[1];
                     tmp = sum(balance, v_sum[0], v_sum[1]);
                     break;
                 case 3:
+                    kitty = v_sum[0] + v_sum[1] + v_sum[2];
                     tmp = sum(balance, v_sum[0], v_sum[1], v_sum[2]);
                     break;
                 case 4:
+                    kitty = v_sum[0] + v_sum[1] + v_sum[2] + v_sum[3];
                     tmp = sum(balance, v_sum[0], v_sum[1], v_sum[2], v_sum[3]);
                     break;
                 case 5:
+                    kitty =  v_sum[0] + v_sum[1] + v_sum[2] + v_sum[3] + v_sum[4];
                     tmp = sum(balance, v_sum[0], v_sum[1], v_sum[2], v_sum[3], v_sum[4]);
                     break;
             }
 
-            cat = tmp - balance;
-            balance = tmp;
-            category A;
+            //cat = tmp + balance;
+            balance = tmp; // Updates balance
+            today_spent = cat;
+            category A; // Object for nested class created
 
-            if (s_tmp == "food")
+            day_val[d_i]++; // Updating the value of today's spent money
+
+            if (s_tmp == "food") // Assigning value within the nested class array
             {
-                A.food[A.f] += tmp;
+                A.food[A.f] += cat;
                 A.f++;
             }
             else if (s_tmp == "gadgets")
             {
-                A.gadgets[A.g] += tmp;
+                A.gadgets[A.g] += cat;
                 A.g++;
             }
             else if (s_tmp == "wardrobe")
             {
-                A.wardrobe[A.w] += tmp;
+                A.wardrobe[A.w] += cat;
                 A.w++;
             }
             else if (s_tmp == "appliances")
             {
-                A.appliances[A.a] += tmp;
+                A.appliances[A.a] += cat;
                 A.a++;
             }
             else
             {
-                A.other[A.o] += tmp;
+                A.other[A.o] += cat;
                 A.o++;
             }
         }
 
-        void get_amt()
+        void dis_bal()
         {
-
+            cout << "Here is your balance in your account: " << balance << endl << endl;
         }
 };
 
 int main()
 {
-    Wealthify x(60, 2); // Object created and variables invoked using parameterized constructor; 
-    x.show();
+    Wealthify x(6000, 2); // Object created and variables invoked using parameterized constructor; 
+
     x.start_app();
-    x.show();
+
     return 0;
 }
