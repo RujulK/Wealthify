@@ -378,13 +378,13 @@ int main()
             }
         else if (op == 2)
         {
-            Wealthify x(5000);
+            Wealthify x(50000);
             x.start_app();
             break;
         }
         else if (op == 3)
         {
-            Wealthify x(6000, 2); // Object created and variables invoked using parameterized constructor; 
+            Wealthify x(100000, 2); // Object created and variables invoked using parameterized constructor; 
             x.start_app();
             break;
         }
